@@ -1,7 +1,8 @@
+// بيانات الموظفين والإجازات
 const employees = JSON.parse(localStorage.getItem('employees')) || [];
 const vacations = JSON.parse(localStorage.getItem('vacations')) || [];
 
-// تحديث قائمة الموظفين في select
+// تحديث قائمة الموظفين
 function updateEmployeeList() {
     const selectElement = document.getElementById('employeeName');
     selectElement.innerHTML = '<option value="">اختر الموظف</option>';
@@ -13,31 +14,27 @@ function updateEmployeeList() {
     });
 }
 
-// إضافة موظف جديد
-function addNewEmployee() {
-    const newEmployeeName = document.getElementById('newEmployeeName').value;
-    const balance = parseFloat(document.getElementById('vacationBalance').value);
-    if (newEmployeeName && !employees.find(emp => emp.name === newEmployeeName)) {
-        employees.push({ name: newEmployeeName, vacationBalance: balance || 0 });
-        localStorage.setItem('employees', JSON.stringify(employees));
-        updateEmployeeList();
-        document.getElementById('newEmployeeName').value = '';
+// تحميل بيانات الموظف المحدد
+function loadEmployeeData() {
+    const employeeName = document.getElementById('employeeName').value;
+    if (employeeName) {
+        const employee = employees.find(emp => emp.name === employeeName);
+        if (employee) {
+            document.getElementById('remainingBalance').textContent = employee.vacationBalance;
+        }
+    } else {
+        document.getElementById('remainingBalance').textContent = '-';
     }
 }
 
-// حذف موظف
-function deleteEmployee() {
-    const employeeName = document.getElementById('employeeName').value;
-    if (employeeName) {
-        const index = employees.findIndex(emp => emp.name === employeeName);
-        if (index !== -1) {
-            employees.splice(index, 1);
-            localStorage.setItem('employees', JSON.stringify(employees));
-            updateEmployeeList();
-            alert('تم حذف الموظف بنجاح');
-        }
-    } else {
-        alert('يرجى اختيار اسم موظف لحذفه');
+// إضافة موظف جديد
+function addNewEmployee() {
+    const newEmployeeName = document.getElementById('newEmployeeName').value.trim();
+    if (newEmployeeName && !employees.find(emp => emp.name === newEmployeeName)) {
+        employees.push({ name: newEmployeeName, vacationBalance: 30 });
+        localStorage.setItem('employees', JSON.stringify(employees));
+        updateEmployeeList();
+        document.getElementById('newEmployeeName').value = '';
     }
 }
 
@@ -55,30 +52,23 @@ function addVacation() {
     }
 
     const employee = employees.find(emp => emp.name === employeeName);
-    if (!employee) {
-        alert('اسم الموظف غير موجود');
-        return;
-    }
-
-    if (employee.vacationBalance < days) {
+    if (employee && employee.vacationBalance >= days) {
+        employee.vacationBalance -= days;
+        vacations.push({ employeeName, days, type, startDate, endDate });
+        localStorage.setItem('employees', JSON.stringify(employees));
+        localStorage.setItem('vacations', JSON.stringify(vacations));
+        loadEmployeeData();
+        updateVacationTable();
+    } else {
         alert('رصيد الإجازات غير كافٍ');
-        return;
     }
-
-    vacations.push({ employeeName, days, type, startDate, endDate });
-    localStorage.setItem('vacations', JSON.stringify(vacations));
-
-    employee.vacationBalance -= days;
-    localStorage.setItem('employees', JSON.stringify(employees));
-
-    updateVacationTable();
 }
 
 // تحديث جدول الإجازات
-function updateVacationTable() {
+function updateVacationTable(filteredVacations = vacations) {
     const tbody = document.querySelector('#vacationTable tbody');
     tbody.innerHTML = '';
-    vacations.forEach((vacation, index) => {
+    filteredVacations.forEach((vacation, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${vacation.employeeName}</td>
@@ -99,18 +89,18 @@ function deleteVacation(index) {
     updateVacationTable();
 }
 
-// عرض جميع الإجازات
-function showAllVacations() {
-    const vacationReport = document.getElementById('vacationReport');
-    vacationReport.innerHTML = '';
-    vacations.forEach(vacation => {
-        const reportItem = document.createElement('p');
-        reportItem.textContent = `الاسم: ${vacation.employeeName}, الأيام: ${vacation.days}, النوع: ${vacation.type}, من: ${vacation.startDate} إلى: ${vacation.endDate}`;
-        vacationReport.appendChild(reportItem);
-    });
+// تصفية الإجازات
+function filterVacations() {
+    const filterName = document.getElementById('filterName').value.trim();
+    if (filterName) {
+        const filteredVacations = vacations.filter(vac => vac.employeeName === filterName);
+        updateVacationTable(filteredVacations);
+    } else {
+        updateVacationTable();
+    }
 }
 
-// عند تحميل الصفحة، تحديث القائمة والجدول
+// عند تحميل الصفحة
 window.onload = () => {
     updateEmployeeList();
     updateVacationTable();
