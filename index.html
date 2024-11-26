@@ -23,8 +23,9 @@
         <select id="employeeName" onchange="loadEmployeeData()">
             <option value="">اختر الموظف</option>
         </select>
+        <button onclick="deleteEmployee()">حذف الموظف</button>
 
-        <!-- خانة إضافة اسم جديد للموظف بشكل دائم -->
+        <!-- خانة إضافة اسم جديد للموظف -->
         <div id="newEmployeeDiv">
             <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" onchange="addNewEmployee()" />
         </div>
@@ -32,15 +33,18 @@
         <!-- إدخال رصيد الإجازات -->
         <div id="vacationBalanceDiv">
             <label for="vacationBalance">رصيد الإجازات:</label>
-            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" />
+            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" step="0.5" />
         </div>
 
         <!-- إضافة إجازة -->
         <label for="vacationDays">عدد الأيام:</label>
-        <input type="number" id="vacationDays" placeholder="عدد الأيام" />
+        <input type="number" id="vacationDays" placeholder="عدد الأيام" step="0.5" />
         
         <label for="vacationType">نوع الإجازة:</label>
-        <input type="text" id="vacationType" placeholder="نوع الإجازة" />
+        <select id="vacationType">
+            <option value="عارضة">عارضة</option>
+            <option value="سنوية">سنوية</option>
+        </select>
 
         <label for="startDate">تاريخ البداية:</label>
         <input type="date" id="startDate" />
@@ -79,123 +83,5 @@
         </footer>
 
     </div>
-
-    <script>
-        // البيانات المخزنة للموظفين والإجازات
-        const employees = JSON.parse(localStorage.getItem('employees')) || [];
-        const vacations = JSON.parse(localStorage.getItem('vacations')) || [];
-
-        // تحديث قائمة الموظفين في الـ select
-        function loadEmployeeData() {
-            const selectElement = document.getElementById('employeeName');
-            const employeeName = selectElement.value;
-
-            if (employeeName) {
-                // إذا تم اختيار اسم، قم بتحميل الرصيد
-                const employee = employees.find(emp => emp.name === employeeName);
-                if (employee) {
-                    document.getElementById('vacationBalance').value = employee.vacationBalance;
-                }
-            } else {
-                document.getElementById('vacationBalance').value = '';
-            }
-        }
-
-        // إضافة اسم موظف جديد
-        function addNewEmployee() {
-            const newEmployeeName = document.getElementById('newEmployeeName').value;
-            if (newEmployeeName) {
-                if (!employees.find(emp => emp.name === newEmployeeName)) {
-                    employees.push({ name: newEmployeeName, vacationBalance: 0 });
-                    localStorage.setItem('employees', JSON.stringify(employees));
-                    updateEmployeeList();
-                    document.getElementById('newEmployeeName').style.display = 'none';
-                    document.getElementById('employeeName').value = newEmployeeName;
-                }
-            }
-        }
-
-        // تحديث قائمة الموظفين
-        function updateEmployeeList() {
-            const selectElement = document.getElementById('employeeName');
-            selectElement.innerHTML = '<option value="">اختر الموظف</option>';
-            employees.forEach(emp => {
-                const option = document.createElement('option');
-                option.value = emp.name;
-                option.textContent = emp.name;
-                selectElement.appendChild(option);
-            });
-        }
-
-        // إضافة إجازة جديدة
-        function addVacation() {
-            const employeeName = document.getElementById('employeeName').value;
-            const days = parseInt(document.getElementById('vacationDays').value);
-            const type = document.getElementById('vacationType').value;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const balanceInput = document.getElementById('vacationBalance');
-            const balance = parseInt(balanceInput.value);
-
-            if (!employeeName || !days || !type || !startDate || !endDate || isNaN(balance)) {
-                alert('يرجى تعبئة جميع الحقول');
-                return;
-            }
-
-            // إضافة الإجازة
-            const vacation = { employeeName, days, type, startDate, endDate };
-            vacations.push(vacation);
-            localStorage.setItem('vacations', JSON.stringify(vacations));
-
-            // تحديث رصيد الإجازات
-            const employee = employees.find(emp => emp.name === employeeName);
-            employee.vacationBalance -= days;
-            localStorage.setItem('employees', JSON.stringify(employees));
-
-            updateVacationTable();
-        }
-
-        // تحديث جدول الإجازات
-        function updateVacationTable() {
-            const tbody = document.querySelector('#vacationTable tbody');
-            tbody.innerHTML = '';
-            vacations.forEach((vacation, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${vacation.employeeName}</td>
-                    <td>${vacation.days}</td>
-                    <td>${vacation.type}</td>
-                    <td>${vacation.startDate}</td>
-                    <td>${vacation.endDate}</td>
-                    <td><button onclick="deleteVacation(${index})">حذف</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // حذف إجازة
-        function deleteVacation(index) {
-            vacations.splice(index, 1);
-            localStorage.setItem('vacations', JSON.stringify(vacations));
-            updateVacationTable();
-        }
-
-        // عرض جميع الإجازات
-        function showAllVacations() {
-            const vacationReport = document.getElementById('vacationReport');
-            vacationReport.innerHTML = '';
-            vacations.forEach(vacation => {
-                const reportItem = document.createElement('p');
-                reportItem.textContent = `الاسم: ${vacation.employeeName}, الأيام: ${vacation.days}, النوع: ${vacation.type}, من: ${vacation.startDate} إلى: ${vacation.endDate}`;
-                vacationReport.appendChild(reportItem);
-            });
-        }
-
-        // عند تحميل الصفحة، تحديث قائمة الموظفين والجدول
-        window.onload = () => {
-            updateEmployeeList();
-            updateVacationTable();
-        };
-    </script>
 </body>
 </html>
