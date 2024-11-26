@@ -1,52 +1,78 @@
+/* تنسيق عام للصفحة */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
     color: #333;
 }
 
-#app {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
+/* رأس التطبيق */
+#app h1 {
     text-align: center;
-    color: #4CAF50;
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    margin: 0;
+    border-bottom: 4px solid #0056b3;
 }
 
+/* الحاوية الرئيسية */
+#app {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* الحقول والإدخالات */
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin-top: 10px;
     font-weight: bold;
 }
 
 input, select, button {
     width: 100%;
     padding: 10px;
-    margin: 5px 0 15px;
-    border: 1px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
+/* الأزرار */
 button {
-    background-color: #4CAF50;
-    color: #fff;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
+/* عرض الرصيد المتبقي */
+#balanceDiv {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* الجداول */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -60,13 +86,38 @@ table th, table td {
 }
 
 table th {
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
 }
 
-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #888;
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
+
+table tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* الفوتر */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ألوان رسائل التحذير */
+.alert {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-top: 10px;
+    }
