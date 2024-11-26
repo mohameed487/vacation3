@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4CAF50">
+  <title>إدارة الإجازات</title>
+  
+  <!-- ربط ملف manifest.json -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- إضافة ايقونة التاب -->
+  <link rel="icon" href="icons/web-app-manifest-192x192.png" type="image/png">
+
+  <!-- إضافة ملف CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>إدارة الإجازات</h1>
+
+    <!-- نموذج إضافة الإجازة -->
+    <div id="add-form">
+      <label for="name">اسم الشخص:</label>
+      <input type="text" id="name" placeholder="أدخل اسم الشخص">
+
+      <label for="vacation-days">عدد أيام الإجازة:</label>
+      <input type="number" id="vacation-days" placeholder="أدخل عدد الأيام">
+
+      <label for="vacation-type">نوع الإجازة:</label>
+      <select id="vacation-type">
+        <option value="مستعجلة">مستعجلة</option>
+        <option value="سنوية">سنوية</option>
+        <option value="مرضية">مرضية</option>
+      </select>
+
+      <button onclick="addVacation()">إضافة إجازة</button>
+    </div>
+
+    <!-- نموذج البحث -->
+    <div id="search-form">
+      <input type="text" id="search-name" placeholder="ابحث عن اسم شخص">
+      <button onclick="searchVacations()">بحث</button>
+    </div>
+
+    <!-- عرض سجل الإجازات -->
+    <h2>سجل الإجازات</h2>
+    <div id="vacation-list"></div>
+
+    <footer>
+      <p>Made by: E. Mohammed Mohsen</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
