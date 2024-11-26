@@ -1,50 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إدارة الإجازات</title>
+    <title>تتبع الإجازات</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
-        <h1>إدارة الإجازات</h1>
-        <form id="leaveForm">
-            <label for="name">اسم الموظف:</label>
-            <select id="name">
-                <option value="">-- اختر أو أدخل اسمًا --</option>
+        <h1>تتبع الإجازات</h1>
+
+        <!-- إدخال بيانات الشخص -->
+        <div class="input-container">
+            <label for="name">اسم الشخص:</label>
+            <input type="text" id="name" placeholder="أدخل اسم الشخص">
+        </div>
+        
+        <!-- إدخال رصيد الإجازات (أول مرة فقط) -->
+        <div class="input-container" id="initial-vacation-container">
+            <label for="vacation-credit">رصيد الإجازات:</label>
+            <input type="number" id="vacation-credit" placeholder="أدخل رصيد الإجازات">
+        </div>
+
+        <!-- اختيار نوع الإجازة -->
+        <div class="input-container">
+            <label for="vacation-type">نوع الإجازة:</label>
+            <select id="vacation-type">
+                <option value="سنوية">إجازة سنوية</option>
+                <option value="مرضية">إجازة مرضية</option>
             </select>
-            <input type="text" id="newName" placeholder="أدخل اسم جديد" />
-            
-            <label for="days">عدد الأيام:</label>
-            <input type="number" id="days" required>
+        </div>
 
-            <label for="startDate">تاريخ البداية:</label>
-            <input type="date" id="startDate" required>
+        <!-- اختيار تاريخ الإجازة -->
+        <div class="input-container">
+            <label for="vacation-start">تاريخ بداية الإجازة:</label>
+            <input type="date" id="vacation-start">
+        </div>
 
-            <label for="endDate">تاريخ النهاية:</label>
-            <input type="date" id="endDate" required>
+        <div class="input-container">
+            <label for="vacation-end">تاريخ نهاية الإجازة:</label>
+            <input type="date" id="vacation-end">
+        </div>
 
-            <label for="type">نوع الإجازة:</label>
-            <select id="type" required>
-                <option value="سنوية">سنوية</option>
-                <option value="مرضية">مرضية</option>
-                <option value="طارئة">طارئة</option>
-            </select>
+        <div class="input-container">
+            <label for="vacation-days">عدد أيام الإجازة:</label>
+            <input type="number" id="vacation-days" placeholder="أدخل عدد أيام الإجازة">
+        </div>
 
-            <button type="submit">إضافة الإجازة</button>
-        </form>
+        <button onclick="addVacation()">إضافة إجازة</button>
 
+        <!-- حقل البحث عن الإجازات -->
+        <div class="input-container">
+            <label for="search-name">البحث عن إجازات شخص:</label>
+            <input type="text" id="search-name" placeholder="أدخل اسم الشخص">
+            <button onclick="searchVacations()">بحث</button>
+        </div>
+
+        <!-- قائمة الإجازات -->
         <h2>قائمة الإجازات</h2>
-        <ul id="leaveList"></ul>
+        <table id="vacation-list">
+            <thead>
+                <tr>
+                    <th>اسم الشخص</th>
+                    <th>نوع الإجازة</th>
+                    <th>تاريخ البداية</th>
+                    <th>تاريخ النهاية</th>
+                    <th>عدد الأيام</th>
+                    <th>الإجراء</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-        <button id="exportButton">تصدير إلى Excel</button>
+        <!-- تعديل رصيد الإجازات -->
+        <div class="input-container">
+            <label for="vacation-credit-update">تعديل رصيد الإجازات:</label>
+            <input type="number" id="vacation-credit-update" placeholder="أدخل رصيد الإجازات الجديد">
+            <button onclick="updateVacationCredit()">تعديل الرصيد</button>
+        </div>
+
+        <footer>Made by: E. Mohammed Mohsen</footer>
     </div>
-
-    <footer>
-        <p>Made by: E. Mohammed Mohsen</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
