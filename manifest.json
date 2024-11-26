@@ -1,10 +1,10 @@
 {
-  "name": "Vacation Manager",
-  "short_name": "VacationApp",
-  "description": "تطبيق لإدارة الإجازات الخاصة بالموظفين",
+  "name": "إدارة الإجازات",
+  "short_name": "الإجازات",
+  "description": "تطبيق لإدارة رصيد الإجازات وإضافتها بسهولة.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#FFFFFF",
+  "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
