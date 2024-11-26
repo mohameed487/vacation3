@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacation Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Vacation Manager</h1>
+    </header>
+    <main>
+        <section>
+            <label for="nameSelect">Select or Add Name:</label>
+            <select id="nameSelect">
+                <option value="" disabled selected>Choose a name or add a new one</option>
+            </select>
+            <input type="text" id="newName" placeholder="Add a new name">
+            <button id="addNameButton">Add Name</button>
+        </section>
+
+        <section>
+            <label for="initialBalance">Vacation Balance:</label>
+            <input type="number" id="initialBalance" placeholder="Enter balance">
+            <button id="updateBalanceButton">Update Balance</button>
+        </section>
+
+        <section>
+            <label for="vacationType">Vacation Type:</label>
+            <input type="text" id="vacationType" placeholder="Enter vacation type">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate">
+            <input type="number" id="vacationDays" placeholder="Days Taken">
+            <button id="addVacationButton">Add Vacation</button>
+        </section>
+
+        <section>
+            <h2>Vacation List</h2>
+            <input type="text" id="filterName" placeholder="Filter by name">
+            <button id="filterButton">Filter</button>
+            <ul id="vacationList"></ul>
+        </section>
+
+        <section>
+            <h2>Reports</h2>
+            <button id="exportToExcel">Export to Excel</button>
+        </section>
+    </main>
+    <footer>
+        <p>Made by: E. Mohammed Mohsen</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
