@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة الإجازات</title>
-
-    <!-- ربط ملف Manifest -->
     <link rel="manifest" href="manifest.json">
-
-    <!-- ربط ملف CSS -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- ربط ملف JavaScript -->
     <script src="app.js" defer></script>
 </head>
 <body>
@@ -23,27 +17,27 @@
         <select id="employeeName" onchange="loadEmployeeData()">
             <option value="">اختر الموظف</option>
         </select>
-        <button onclick="deleteEmployee()">حذف الموظف</button>
-
-        <!-- خانة إضافة اسم جديد للموظف -->
+        
+        <!-- خانة إدخال اسم جديد -->
         <div id="newEmployeeDiv">
-            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" onchange="addNewEmployee()" />
+            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" />
+            <button onclick="addNewEmployee()">إضافة اسم</button>
         </div>
 
-        <!-- إدخال رصيد الإجازات -->
-        <div id="vacationBalanceDiv">
-            <label for="vacationBalance">رصيد الإجازات:</label>
-            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" step="0.5" />
+        <!-- عرض الرصيد المتبقي -->
+        <div id="balanceDiv">
+            <label>الرصيد المتبقي:</label>
+            <span id="remainingBalance">-</span>
         </div>
 
-        <!-- إضافة إجازة -->
+        <!-- إدخال إجازة -->
         <label for="vacationDays">عدد الأيام:</label>
-        <input type="number" id="vacationDays" placeholder="عدد الأيام" step="0.5" />
+        <input type="number" id="vacationDays" step="0.5" placeholder="عدد الأيام" />
         
         <label for="vacationType">نوع الإجازة:</label>
         <select id="vacationType">
-            <option value="عارضة">عارضة</option>
             <option value="سنوية">سنوية</option>
+            <option value="عارضة">عارضة</option>
         </select>
 
         <label for="startDate">تاريخ البداية:</label>
@@ -53,6 +47,12 @@
         <input type="date" id="endDate" />
         
         <button onclick="addVacation()">إضافة إجازة</button>
+
+        <!-- تصفية الإجازات -->
+        <div>
+            <input type="text" id="filterName" placeholder="أدخل اسم الموظف للتصفية" />
+            <button onclick="filterVacations()">تصفية</button>
+        </div>
 
         <!-- جدول عرض الإجازات -->
         <table id="vacationTable">
@@ -67,21 +67,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- الإجازات ستعرض هنا -->
+                <!-- يتم عرض الإجازات هنا -->
             </tbody>
         </table>
-
-        <!-- عرض جميع الإجازات داخل التطبيق -->
-        <div>
-            <button onclick="showAllVacations()">عرض جميع الإجازات</button>
-            <div id="vacationReport"></div>
-        </div>
 
         <!-- جملة Made by -->
         <footer>
             <p>Made by: Mohammed Mohsen</p>
         </footer>
-
     </div>
 </body>
 </html>
