@@ -1,0 +1,21 @@
+{
+  "name": "Vacation Manager",
+  "short_name": "VacationApp",
+  "description": "تطبيق لإدارة الإجازات الخاصة بالموظفين",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
