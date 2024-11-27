@@ -1,11 +1,11 @@
 {
     "name": "إدارة الإجازات",
     "short_name": "إجازات",
-    "description": "تطبيق لإدارة الإجازات وتنظيم رصيد الإجازات للموظفين",
-    "start_url": ".",
+    "description": "تطبيق لإدارة الإجازات ورصيد الموظفين بسهولة.",
+    "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#f7f7f7",
-    "theme_color": "#3498db",
+    "background_color": "#f5f5f5",
+    "theme_color": "#4CAF50",
     "icons": [
         {
             "src": "icons/web-app-manifest-192x192.png",
@@ -17,5 +17,16 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "permissions": [
+        "storage"
+    ],
+    "features": [
+        "إدارة الموظفين",
+        "تعديل الرصيد",
+        "تصفية الإجازات",
+        "إضافة وحذف إجازات"
+    ],
+    "lang": "ar",
+    "orientation": "portrait"
 }
