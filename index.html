@@ -4,74 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة الإجازات</title>
-
-    <!-- ربط ملفات CSS و Manifest -->
+    
+    <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- ربط ملف JavaScript -->
+    
+    <!-- JavaScript -->
     <script src="app.js" defer></script>
 </head>
 <body>
     <div id="app">
-        <h1>إدارة الإجازات</h1>
-
-        <!-- اختيار الموظف -->
-        <label for="employeeName">اسم الموظف:</label>
-        <select id="employeeName" onchange="loadEmployeeData()">
-            <option value="">اختر الموظف</option>
-        </select>
-
-        <!-- خانة لإضافة اسم جديد للموظف -->
-        <div>
-            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" />
-            <button onclick="addNewEmployee()">إضافة موظف</button>
-        </div>
-
-        <!-- تعديل رصيد الإجازات -->
-        <div>
-            <label for="vacationBalance">رصيد الإجازات:</label>
-            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" />
-            <button onclick="updateVacationBalance()">تعديل الرصيد</button>
-        </div>
-
-        <!-- زر حذف الموظف -->
-        <button id="deleteEmployeeBtn" onclick="deleteEmployee()">حذف الموظف</button>
-
-        <!-- إضافة إجازة -->
-        <label for="vacationDays">عدد الأيام:</label>
-        <input type="number" id="vacationDays" placeholder="عدد الأيام" />
-
-        <label for="vacationType">نوع الإجازة:</label>
-        <select id="vacationType">
-            <option value="سنوية">سنوية</option>
-            <option value="عارضة">عارضة</option>
-        </select>
-
-        <label for="startDate">تاريخ البداية:</label>
-        <input type="date" id="startDate" />
-
-        <label for="endDate">تاريخ النهاية:</label>
-        <input type="date" id="endDate" />
+        <header>
+            <h1>إدارة الإجازات</h1>
+        </header>
         
-        <button onclick="addVacation()">إضافة إجازة</button>
+        <main>
+            <!-- قسم الموظفين -->
+            <section id="employee-section">
+                <label for="employeeName">اسم الموظف:</label>
+                <select id="employeeName" onchange="loadEmployeeData()">
+                    <option value="">اختر الموظف</option>
+                </select>
+                <button onclick="deleteEmployee()">حذف الموظف</button>
+                <button onclick="updateBalance()">تعديل الرصيد</button>
+            </section>
 
-        <!-- جدول عرض الإجازات -->
-        <table id="vacationTable">
-            <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>عدد الأيام</th>
-                    <th>نوع الإجازة</th>
-                    <th>تاريخ البداية</th>
-                    <th>تاريخ النهاية</th>
-                    <th>الإجراء</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            <!-- إضافة موظف -->
+            <section id="add-employee-section">
+                <h2>إضافة موظف جديد</h2>
+                <label for="newEmployeeName">اسم الموظف:</label>
+                <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف" />
+                <label for="newVacationBalance">رصيد الإجازات:</label>
+                <input type="number" id="newVacationBalance" placeholder="رصيد الإجازات" />
+                <button onclick="addNewEmployee()">إضافة</button>
+            </section>
 
-        <!-- جملة Made by -->
+            <!-- إضافة إجازة -->
+            <section id="add-vacation-section">
+                <h2>إضافة إجازة</h2>
+                <label for="vacationDays">عدد الأيام:</label>
+                <input type="number" step="0.5" id="vacationDays" placeholder="عدد الأيام" />
+                
+                <label for="vacationType">نوع الإجازة:</label>
+                <select id="vacationType">
+                    <option value="سنوية">سنوية</option>
+                    <option value="عارضة">عارضة</option>
+                </select>
+
+                <label for="startDate">تاريخ البداية:</label>
+                <input type="date" id="startDate" />
+
+                <label for="endDate">تاريخ النهاية:</label>
+                <input type="date" id="endDate" />
+                
+                <button onclick="addVacation()">إضافة إجازة</button>
+            </section>
+
+            <!-- جدول الإجازات -->
+            <section id="vacations-table">
+                <h2>سجل الإجازات</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>نوع الإجازة</th>
+                            <th>عدد الأيام</th>
+                            <th>تاريخ البداية</th>
+                            <th>تاريخ النهاية</th>
+                            <th>الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacationTableBody"></tbody>
+                </table>
+            </section>
+
+            <!-- تقرير الإجازات -->
+            <section id="report-section">
+                <h2>عرض الإجازات</h2>
+                <button onclick="showAllVacations()">عرض جميع الإجازات</button>
+                <div id="vacationReport"></div>
+            </section>
+        </main>
+        
         <footer>
             <p>Made by: Mohammed Mohsen</p>
         </footer>
