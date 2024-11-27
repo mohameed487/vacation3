@@ -17,28 +17,24 @@
         <select id="employeeName" onchange="loadEmployeeData()">
             <option value="">اختر الموظف</option>
         </select>
-        
-        <!-- خانة إدخال اسم جديد -->
+
+        <!-- خانة إضافة اسم جديد للموظف بشكل دائم -->
         <div id="newEmployeeDiv">
-            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" />
-            <button onclick="addNewEmployee()">إضافة اسم</button>
+            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" onchange="addNewEmployee()" />
         </div>
 
-        <!-- عرض الرصيد المتبقي -->
-        <div id="balanceDiv">
-            <label>الرصيد المتبقي:</label>
-            <span id="remainingBalance">-</span>
+        <!-- تعديل رصيد الإجازات -->
+        <div id="vacationBalanceDiv">
+            <label for="vacationBalance">رصيد الإجازات:</label>
+            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" onchange="updateVacationBalance()" />
         </div>
 
-        <!-- إدخال إجازة -->
+        <!-- إضافة إجازة -->
         <label for="vacationDays">عدد الأيام:</label>
-        <input type="number" id="vacationDays" step="0.5" placeholder="عدد الأيام" />
+        <input type="number" id="vacationDays" placeholder="عدد الأيام" />
         
         <label for="vacationType">نوع الإجازة:</label>
-        <select id="vacationType">
-            <option value="سنوية">سنوية</option>
-            <option value="عارضة">عارضة</option>
-        </select>
+        <input type="text" id="vacationType" placeholder="نوع الإجازة" />
 
         <label for="startDate">تاريخ البداية:</label>
         <input type="date" id="startDate" />
@@ -47,12 +43,6 @@
         <input type="date" id="endDate" />
         
         <button onclick="addVacation()">إضافة إجازة</button>
-
-        <!-- تصفية الإجازات -->
-        <div>
-            <input type="text" id="filterName" placeholder="أدخل اسم الموظف للتصفية" />
-            <button onclick="filterVacations()">تصفية</button>
-        </div>
 
         <!-- جدول عرض الإجازات -->
         <table id="vacationTable">
@@ -66,15 +56,14 @@
                     <th>الإجراء</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- يتم عرض الإجازات هنا -->
-            </tbody>
+            <tbody></tbody>
         </table>
 
-        <!-- جملة Made by -->
+        <!-- عرض جميع الإجازات داخل التطبيق -->
+        <div>
+            <button onclick="showAllVacations()">عرض جميع الإجازات</button>
+            <div id="vacationReport"></div>
+        </div>
+
         <footer>
-            <p>Made by: Mohammed Mohsen</p>
-        </footer>
-    </div>
-</body>
-</html>
+            <p>Made by: Mohammed Moh
