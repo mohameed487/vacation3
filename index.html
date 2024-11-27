@@ -4,37 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة الإجازات</title>
+
+    <!-- ربط ملفات CSS و Manifest -->
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- ربط ملف JavaScript -->
     <script src="app.js" defer></script>
 </head>
 <body>
     <div id="app">
         <h1>إدارة الإجازات</h1>
-        
+
         <!-- اختيار الموظف -->
         <label for="employeeName">اسم الموظف:</label>
         <select id="employeeName" onchange="loadEmployeeData()">
             <option value="">اختر الموظف</option>
         </select>
 
-        <!-- خانة إضافة اسم جديد للموظف بشكل دائم -->
-        <div id="newEmployeeDiv">
-            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" onchange="addNewEmployee()" />
+        <!-- خانة لإضافة اسم جديد للموظف -->
+        <div>
+            <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف الجديد" />
+            <button onclick="addNewEmployee()">إضافة موظف</button>
         </div>
 
         <!-- تعديل رصيد الإجازات -->
-        <div id="vacationBalanceDiv">
+        <div>
             <label for="vacationBalance">رصيد الإجازات:</label>
-            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" onchange="updateVacationBalance()" />
+            <input type="number" id="vacationBalance" placeholder="رصيد الإجازات" />
+            <button onclick="updateVacationBalance()">تعديل الرصيد</button>
         </div>
+
+        <!-- زر حذف الموظف -->
+        <button id="deleteEmployeeBtn" onclick="deleteEmployee()">حذف الموظف</button>
 
         <!-- إضافة إجازة -->
         <label for="vacationDays">عدد الأيام:</label>
         <input type="number" id="vacationDays" placeholder="عدد الأيام" />
-        
+
         <label for="vacationType">نوع الإجازة:</label>
-        <input type="text" id="vacationType" placeholder="نوع الإجازة" />
+        <select id="vacationType">
+            <option value="سنوية">سنوية</option>
+            <option value="عارضة">عارضة</option>
+        </select>
 
         <label for="startDate">تاريخ البداية:</label>
         <input type="date" id="startDate" />
@@ -59,11 +71,10 @@
             <tbody></tbody>
         </table>
 
-        <!-- عرض جميع الإجازات داخل التطبيق -->
-        <div>
-            <button onclick="showAllVacations()">عرض جميع الإجازات</button>
-            <div id="vacationReport"></div>
-        </div>
-
+        <!-- جملة Made by -->
         <footer>
-            <p>Made by: Mohammed Moh
+            <p>Made by: Mohammed Mohsen</p>
+        </footer>
+    </div>
+</body>
+</html>
