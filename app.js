@@ -36,6 +36,12 @@ function addNewEmployee() {
     document.getElementById('newVacationBalance').value = '';
 }
 
+function loadEmployeeData() {
+    const employeeName = document.getElementById('employeeName').value;
+    const balance = employees[employeeName]?.balance || 0;
+    document.getElementById('employeeBalance').textContent = `رصيد الإجازات المتبقي: ${balance} يوم`;
+}
+
 // حذف موظف
 function deleteEmployee() {
     const name = document.getElementById('employeeName').value;
