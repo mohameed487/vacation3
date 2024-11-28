@@ -14,6 +14,19 @@ function updateEmployeeList() {
     });
 }
 
+// عرض الرصيد المتبقي
+function showRemainingBalance() {
+    const name = document.getElementById('employeeName').value;
+    const balanceSpan = document.getElementById('balanceValue');
+    if (!name) {
+        balanceSpan.textContent = "0";
+        return;
+    }
+
+    const employee = employees.find(emp => emp.name === name);
+    balanceSpan.textContent = employee ? employee.vacationBalance : "0";
+}
+
 // إضافة موظف جديد
 function addNewEmployee() {
     const name = document.getElementById('newEmployeeName').value.trim();
@@ -49,6 +62,7 @@ function deleteEmployee() {
         employees.splice(index, 1);
         localStorage.setItem('employees', JSON.stringify(employees));
         updateEmployeeList();
+        showRemainingBalance(); // تحديث الرصيد بعد الحذف
         alert('تم حذف الموظف.');
     }
 }
@@ -67,6 +81,7 @@ function updateEmployeeBalance() {
     if (employee) {
         employee.vacationBalance = newBalance;
         localStorage.setItem('employees', JSON.stringify(employees));
+        showRemainingBalance(); // تحديث الرصيد بعد التعديل
         alert('تم تعديل الرصيد.');
     }
 }
@@ -92,6 +107,7 @@ function addVacation() {
         localStorage.setItem('vacations', JSON.stringify(vacations));
         updateEmployeeList();
         updateVacationTable();
+        showRemainingBalance(); // تحديث الرصيد بعد الإضافة
     } else {
         alert('رصيد الإجازات غير كافٍ.');
     }
@@ -134,4 +150,8 @@ function showAllVacations() {
 window.onload = () => {
     updateEmployeeList();
     updateVacationTable();
+
+    // تحديث الرصيد عند اختيار الموظف
+    const employeeSelect = document.getElementById('employeeName');
+    employeeSelect.addEventListener('change', showRemainingBalance);
 };
