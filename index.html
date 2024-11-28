@@ -1,87 +1,99 @@
-// بيانات الموظفين
-let employees = {};
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الإجازات</title>
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- JavaScript -->
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>إدارة الإجازات</h1>
+        </header>
+        
+        <main>
+            <!-- قسم الموظفين -->
+            <section id="employee-section">
+                <label for="employeeName">اسم الموظف:</label>
+                <select id="employeeName" onchange="loadEmployeeData()">
+                    <option value="">اختر الموظف</option>
+                </select>
+                <button onclick="deleteEmployee()">حذف الموظف</button>
+                <button onclick="updateBalance()">تعديل الرصيد</button>
+                <div id="remainingBalance">
+                    <strong>الرصيد الباقي:</strong> <span id="balanceValue">0</span>
+                </div>
+            </section>
 
-// تحميل بيانات الموظف عند تغييره
-function loadEmployeeData() {
-    const employeeName = document.getElementById("employeeName").value;
-    if (employeeName && employees[employeeName]) {
-        const remainingBalance = employees[employeeName].balance;
-        document.getElementById("balanceValue").textContent = remainingBalance;
-    } else {
-        document.getElementById("balanceValue").textContent = 0;
-    }
-}
+            <!-- إضافة موظف -->
+            <section id="add-employee-section">
+                <h2>إضافة موظف جديد</h2>
+                <label for="newEmployeeName">اسم الموظف:</label>
+                <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف" />
+                <label for="newVacationBalance">رصيد الإجازات:</label>
+                <input type="number" id="newVacationBalance" placeholder="رصيد الإجازات" />
+                <button onclick="addNewEmployee()">إضافة</button>
+            </section>
 
-// إضافة موظف جديد
-function addNewEmployee() {
-    const name = document.getElementById("newEmployeeName").value;
-    const balance = parseFloat(document.getElementById("newVacationBalance").value);
+            <!-- إضافة إجازة -->
+            <section id="add-vacation-section">
+                <h2>إضافة إجازة</h2>
+                <label for="vacationDays">عدد الأيام:</label>
+                <input type="number" step="0.5" id="vacationDays" placeholder="عدد الأيام" />
+                
+                <label for="vacationType">نوع الإجازة:</label>
+                <select id="vacationType">
+                    <option value="سنوية">سنوية</option>
+                    <option value="عارضة">عارضة</option>
+                </select>
 
-    if (name && !isNaN(balance)) {
-        employees[name] = {
-            balance: balance,
-            vacations: []
-        };
-        updateEmployeeList();
-    } else {
-        alert("الرجاء إدخال اسم الموظف ورصيد صحيح.");
-    }
-}
+                <label for="startDate">تاريخ البداية:</label>
+                <input type="date" id="startDate" />
 
-// تحديث قائمة الموظفين
-function updateEmployeeList() {
-    const employeeSelect = document.getElementById("employeeName");
-    employeeSelect.innerHTML = '<option value="">اختر الموظف</option>';
-    for (const name in employees) {
-        const option = document.createElement("option");
-        option.value = name;
-        option.textContent = name;
-        employeeSelect.appendChild(option);
-    }
-}
+                <label for="endDate">تاريخ النهاية:</label>
+                <input type="date" id="endDate" />
+                
+                <button onclick="addVacation()">إضافة إجازة</button>
+            </section>
 
-// إضافة إجازة
-function addVacation() {
-    const employeeName = document.getElementById("employeeName").value;
-    const days = parseFloat(document.getElementById("vacationDays").value);
+            <!-- جدول الإجازات -->
+            <section id="vacations-table">
+                <h2>سجل الإجازات</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>نوع الإجازة</th>
+                            <th>عدد الأيام</th>
+                            <th>تاريخ البداية</th>
+                            <th>تاريخ النهاية</th>
+                            <th>الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacationTableBody"></tbody>
+                </table>
+            </section>
 
-    if (employeeName && !isNaN(days)) {
-        if (employees[employeeName].balance >= days) {
-            employees[employeeName].balance -= days;
-            employees[employeeName].vacations.push({
-                type: document.getElementById("vacationType").value,
-                days: days,
-                startDate: document.getElementById("startDate").value,
-                endDate: document.getElementById("endDate").value
-            });
-            loadEmployeeData();
-            updateVacationTable();
-        } else {
-            alert("الرصيد المتاح لا يكفي لهذه الإجازة.");
-        }
-    } else {
-        alert("الرجاء تحديد الموظف وإدخال عدد الأيام.");
-    }
-}
-
-// تحديث جدول الإجازات
-function updateVacationTable() {
-    const employeeName = document.getElementById("employeeName").value;
-    const tableBody = document.getElementById("vacationTableBody");
-    tableBody.innerHTML = "";
-
-    if (employeeName && employees[employeeName]) {
-        employees[employeeName].vacations.forEach(vacation => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${employeeName}</td>
-                <td>${vacation.type}</td>
-                <td>${vacation.days}</td>
-                <td>${vacation.startDate}</td>
-                <td>${vacation.endDate}</td>
-                <td>---</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-}
+            <!-- تقرير الإجازات -->
+            <section id="report-section">
+                <h2>عرض الإجازات</h2>
+                <button onclick="showAllVacations()">عرض جميع الإجازات</button>
+                <div id="vacationReport"></div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Made by: Mohammed Mohsen</p>
+        </footer>
+    </div>
+</body>
+</html>
