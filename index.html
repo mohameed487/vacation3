@@ -21,30 +21,28 @@
         </header>
         
         <main>
+            <!-- قسم الموظفين -->
             <section id="employee-section">
-                <!-- اختيار الموظف -->
                 <label for="employeeName">اسم الموظف:</label>
                 <select id="employeeName" onchange="loadEmployeeData()">
                     <option value="">اختر الموظف</option>
                 </select>
                 <button onclick="deleteEmployee()">حذف الموظف</button>
                 <button onclick="updateBalance()">تعديل الرصيد</button>
-
-                <!-- عرض الرصيد المتبقي -->
-                <p id="remainingBalance" style="margin-top: 10px; font-weight: bold;">رصيد الإجازات المتبقي: -</p>
             </section>
 
+            <!-- إضافة موظف -->
             <section id="add-employee-section">
-                <!-- خانة إضافة اسم جديد للموظف -->
-                <label for="newEmployeeName">إضافة موظف جديد:</label>
+                <h2>إضافة موظف جديد</h2>
+                <label for="newEmployeeName">اسم الموظف:</label>
                 <input type="text" id="newEmployeeName" placeholder="أدخل اسم الموظف" />
                 <label for="newVacationBalance">رصيد الإجازات:</label>
                 <input type="number" id="newVacationBalance" placeholder="رصيد الإجازات" />
                 <button onclick="addNewEmployee()">إضافة</button>
             </section>
 
+            <!-- إضافة إجازة -->
             <section id="add-vacation-section">
-                <!-- إضافة إجازة -->
                 <h2>إضافة إجازة</h2>
                 <label for="vacationDays">عدد الأيام:</label>
                 <input type="number" step="0.5" id="vacationDays" placeholder="عدد الأيام" />
@@ -64,8 +62,8 @@
                 <button onclick="addVacation()">إضافة إجازة</button>
             </section>
 
+            <!-- جدول الإجازات -->
             <section id="vacations-table">
-                <!-- جدول الإجازات -->
                 <h2>سجل الإجازات</h2>
                 <table>
                     <thead>
@@ -82,8 +80,8 @@
                 </table>
             </section>
 
+            <!-- تقرير الإجازات -->
             <section id="report-section">
-                <!-- تقرير الإجازات -->
                 <h2>عرض الإجازات</h2>
                 <button onclick="showAllVacations()">عرض جميع الإجازات</button>
                 <div id="vacationReport"></div>
